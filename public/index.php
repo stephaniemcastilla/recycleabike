@@ -13,8 +13,8 @@
 // later it might be useful to use a namespace here, but for now let's keep it as simple as possible
 require '../vendor/autoload.php';
 
-$dotenv = new Dotenv\Dotenv('../'.__DIR__);
-$dotenv->load();
+//$dotenv = new Dotenv\Dotenv('../'.__DIR__);
+//$dotenv->load();
 
 // start our application
 new Application();
