@@ -51,13 +51,13 @@ return array(
 	 * DB_PORT The mysql port, 3306 by default (?), find out via phpinfo() and look for mysqli.default_port.
 	 * DB_CHARSET The charset, necessary for security reasons. Check Database.php class for more info.
 	 */
-	'DB_TYPE' => 'mysql',
-	'DB_HOST' => '127.0.0.1',
-	'DB_NAME' => 'rab_database',
-	'DB_USER' => 'root',
-	'DB_PASS' => 'root',
-	'DB_PORT' => '3306',
-	'DB_CHARSET' => 'utf8',
+ 	'DB_TYPE' => 'mysql',
+ 	'DB_HOST' => getenv('DB_HOST'),
+ 	'DB_NAME' => getenv('DB_NAME'),
+ 	'DB_USER' => getenv('DB_USER'),
+ 	'DB_PASS' => getenv('DB_PASS'),
+ 	'DB_PORT' => '3306',
+ 	'DB_CHARSET' => 'utf8',
 	/**
 	 * Configuration for: Additional login providers: Facebook
 	 * CURRENTLY REMOVED (as Facebook has removed support for the used API version).

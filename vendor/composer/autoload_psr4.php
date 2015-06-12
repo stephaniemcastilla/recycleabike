@@ -7,5 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Symfony\\Component\\Yaml\\' => array($vendorDir . '/symfony/yaml'),
+    'Dotenv\\' => array($vendorDir . '/vlucas/phpdotenv/src'),
     '' => array($baseDir . '/application/core', $baseDir . '/application/model'),
 );
