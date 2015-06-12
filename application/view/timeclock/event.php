@@ -5,7 +5,7 @@
 <div class="timeclock" style="margin-top: 50px;">
   <a class="button-half" href="<?= Config::get('URL') . 'timeclock/signin/' . $this->event->uuid; ?>">SIGN IN</a>
   <a class="button-half" href="<?= Config::get('URL') . 'timeclock/signout/' . $this->event->uuid; ?>">SIGN OUT</a>
-  <a class="button-full" href="<?= Config::get('URL') . 'timeclock/status/' . $this->event->uuid; ?>">LOOKUP INFO</a>
+  <a class="button-full" href="<?= Config::get('URL') . 'timeclock/status/' . $this->event->uuid; ?>">EVENT OVERVIEW</a>
   <a class="button-full" href="<?= Config::get('URL') . 'timeclock/status/' . $this->event->uuid; ?>">PURCHASE PARTS</a>
   <a class="button-full" href="<?= Config::get('URL') . 'timeclock/status/' . $this->event->uuid; ?>">REGISTER PROFILE</a>
 </div>

@@ -57,7 +57,7 @@ class BikesModel
         return false;
     }
 
-    public static function updateBike($uuid, $id, $make, $model, $color, $price, $serial, $photo, $source, $mechanic, $date_in, $date_out)
+    public static function updateBike($uuid, $id, $make, $model, $color, $price, $serial, $photo, $source, $status, $mechanic, $date_in, $date_out)
     {
         // if (!$make) {
         //   Session::add('feedback_negative', Text::get('FEEDBACK_BIKE_EDITING_FAILED'));
@@ -66,9 +66,9 @@ class BikesModel
         
         $database = DatabaseFactory::getFactory()->getConnection();
 
-        $sql = "UPDATE bikes SET make = :make, model = :model, color = :color,  price = :price, serial = :serial, photo = :photo, source = :source, mechanic = :mechanic, date_in = :date_in, date_out = :date_out WHERE uuid = :uuid AND user_id = :user_id LIMIT 1";
+        $sql = "UPDATE bikes SET make = :make, model = :model, color = :color,  price = :price, serial = :serial, photo = :photo, source = :source, status = :status, mechanic = :mechanic, date_in = :date_in, date_out = :date_out WHERE uuid = :uuid AND user_id = :user_id LIMIT 1";
         $query = $database->prepare($sql);
-        $query->execute(array(':uuid' => $uuid, ':make' => $make, ':model' => $model, ':color' => $color, ':price' => $price, ':serial' => $serial, ':photo' => $photo, ':source' => $source, ':mechanic' => $mechanic, ':date_in' => $date_in, ':date_out' => $date_out, ':user_id' => Session::get('user_id')));
+        $query->execute(array(':uuid' => $uuid, ':make' => $make, ':model' => $model, ':color' => $color, ':price' => $price, ':serial' => $serial, ':photo' => $photo, ':source' => $source, ':status' => $status, ':mechanic' => $mechanic, ':date_in' => $date_in, ':date_out' => $date_out, ':user_id' => Session::get('user_id')));
 
         if ($query->rowCount() == 1) {
             return true;

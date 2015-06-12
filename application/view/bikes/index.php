@@ -54,17 +54,18 @@
           <table class="table table-striped table-bordered table-hover">
               <thead>
               <tr>
-                  <td>Bike ID</td>
-                  <td>Bike Photo</td>
-                  <td>Bike Make</td>
-                  <td>Bike Model</td>
-                  <td>Bike Color</td>
-                  <td>Bike Price</td>
-                  <td>Bike Serial</td>
-                  <td>Bike Status</td>
-                  <td>Bike Source</td>
-                  <td>Bike Date In</td>
-                  <td>Bike Date Out</td>
+                  <td>ID</td>
+                  <td>Photo</td>
+                  <td>Make</td>
+                  <td>Model</td>
+                  <td>Color</td>
+                  <td>Price</td>
+                  <td>Serial</td>
+                  <td>Status</td>
+                  <td>Source</td>
+                  <td>Mechanic</td>
+                  <td>Date In</td>
+                  <td>Date Out</td>
                   <td>VIEW</td>
                   <td>EDIT</td>
                   <td>DELETE</td>
@@ -82,6 +83,7 @@
                           <td><?= htmlentities($value->serial); ?></td>
                           <td><?= htmlentities($value->status); ?></td>
                           <td><?= htmlentities($value->source); ?></td>
+                          <td><?= htmlentities($value->mechanic); ?></td>
                           <td><?= htmlentities($value->date_in); ?></td>
                           <td><?= htmlentities($value->date_out); ?></td>
                           <td><a href="<?= Config::get('URL') . 'bikes/view/' . $value->uuid; ?>">View</a></td>
