@@ -12,7 +12,7 @@
  */
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
-
+date_default_timezone_set('America/New_York');
 /**
  * Returns the full configuration.
  * This is used by the core/Config class.
@@ -53,9 +53,9 @@ return array(
 	 */
 	'DB_TYPE' => 'mysql',
 	'DB_HOST' => '127.0.0.1',
-	'DB_NAME' => 'huge',
+	'DB_NAME' => 'rab_database',
 	'DB_USER' => 'root',
-	'DB_PASS' => '12345678',
+	'DB_PASS' => 'root',
 	'DB_PORT' => '3306',
 	'DB_CHARSET' => 'utf8',
 	/**
@@ -87,7 +87,7 @@ return array(
 	 * AVATAR_SIZE set the pixel size of avatars/gravatars (will be 44x44 by default). Avatars are always squares.
 	 * AVATAR_DEFAULT_IMAGE is the default image in public/avatars/
 	 */
-	'USE_GRAVATAR' => false,
+	'USE_GRAVATAR' => true,
 	'GRAVATAR_DEFAULT_IMAGESET' => 'mm',
 	'GRAVATAR_RATING' => 'pg',
 	'AVATAR_SIZE' => 44,
@@ -106,11 +106,11 @@ return array(
 	 * EMAIL_SMTP_AUTH: leave this true unless your SMTP service does not need authentication
 	 */
 	'EMAIL_USED_MAILER' => 'phpmailer',
-	'EMAIL_USE_SMTP' => false,
-	'EMAIL_SMTP_HOST' => 'yourhost',
+	'EMAIL_USE_SMTP' => true,
+	'EMAIL_SMTP_HOST' => 'smtp.gmail.com',
 	'EMAIL_SMTP_AUTH' => true,
-	'EMAIL_SMTP_USERNAME' => 'yourusername',
-	'EMAIL_SMTP_PASSWORD' => 'yourpassword',
+	'EMAIL_SMTP_USERNAME' => 'stephanie.m.castilla',
+	'EMAIL_SMTP_PASSWORD' => '9GvU+QR{gzdVwz7CX376fR',
 	'EMAIL_SMTP_PORT' => 465,
 	'EMAIL_SMTP_ENCRYPTION' => 'ssl',
 	/**

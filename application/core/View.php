@@ -20,7 +20,8 @@ class View
                 $this->{$key} = $value;
             }
         }
-
+        
+        require Config::get('PATH_VIEW') . '_templates/includes.php';
         require Config::get('PATH_VIEW') . '_templates/header.php';
         require Config::get('PATH_VIEW') . $filename . '.php';
         require Config::get('PATH_VIEW') . '_templates/footer.php';
@@ -45,7 +46,8 @@ class View
                 $this->{$key} = $value;
             }
         }
-
+        
+        require Config::get('PATH_VIEW') . '_templates/includes.php';
         require Config::get('PATH_VIEW') . '_templates/header.php';
 
         foreach($filenames as $filename) {
@@ -68,6 +70,7 @@ class View
             }
         }
 
+        require Config::get('PATH_VIEW') . '_templates/includes.php';
         require Config::get('PATH_VIEW') . $filename . '.php';
     }
 

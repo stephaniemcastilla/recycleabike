@@ -1,5 +1,5 @@
 <div class="container">
-    <h1>LoginController/showProfile</h1>
+    <h1>Account Settings</h1>
 
     <div class="box">
         <h2>Your profile</h2>
@@ -18,4 +18,10 @@
         </div>
         <div>Your account type is: <?= $this->user_account_type; ?></div>
     </div>
+    
+    <a href="<?php echo Config::get('URL'); ?>login/changeUserRole">Change account type</a>
+    <a href="<?php echo Config::get('URL'); ?>login/editAvatar">Edit your avatar</a>
+    <a href="<?php echo Config::get('URL'); ?>login/editusername">Edit my username</a>
+    <a href="<?php echo Config::get('URL'); ?>login/edituseremail">Edit my email</a>
+    
 </div>
