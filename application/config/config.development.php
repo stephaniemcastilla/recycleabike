@@ -13,6 +13,9 @@
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 date_default_timezone_set('America/New_York');
+
+$dotenv = new Dotenv\Dotenv(__DIR__);
+$dotenv->overload();
 /**
  * Returns the full configuration.
  * This is used by the core/Config class.
