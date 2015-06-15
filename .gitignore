@@ -1,1 +1,2 @@
-.env
+application/config/.env
+application/config/config.development.php
