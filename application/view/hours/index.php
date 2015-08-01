@@ -24,7 +24,7 @@
                      <select name="person_id">
                        <?php if ($this->people) { ?>
                        <?php foreach($this->people as $key => $person) { ?>
-                         <option value="<?= htmlentities($person->person_uuid);?>"><?= htmlentities($person->first);?> <?= htmlentities($person->last);?></option>
+                         <option value="<?= htmlentities($person->id);?>"><?= htmlentities($person->first);?> <?= htmlentities($person->last);?></option>
                        <?php }} else { ?>
                          <option>No people yet. Create some !</option>
                        <?php } ?>
@@ -66,10 +66,16 @@
             <tbody>
                 <?php foreach($this->hours as $key => $hour) { ?>
                     <tr>
-                        <td><?= htmlentities($hour->date); ?></td>
+                        <td>
+                          <?php foreach($this->events as $key => $event) { ?>
+                            <?php if(htmlentities($event->id)==htmlentities($hour->event_id)){?>
+                              <?= date("m/d/Y", strtotime(htmlentities($event->date))); ?>
+                            <?php } ?>
+                           <?php } ?>
+                        </td>
                         <td>
                          <?php foreach($this->people as $key => $person) { ?>
-                            <?php if(htmlentities($person->person_uuid)==htmlentities($hour->person_id)){?>
+                            <?php if(htmlentities($person->id)==htmlentities($hour->person_id)){?>
                               <?= htmlentities($person->first); ?> <?= htmlentities($person->last); ?>
                             <?php } ?>
                           <?php } ?>
@@ -79,9 +85,9 @@
                         <td><?= htmlentities($hour->total_time); ?> Hours</td>
                         <td><?= htmlentities($hour->total_points); ?> Points</td>
                         <td>$<?= htmlentities($hour->total_revenue); ?></td>
-                        <td><a href="<?= Config::get('URL') . 'hours/view/' . $hour->uuid; ?>">View</a></td>
-                        <td><a href="<?= Config::get('URL') . 'hours/edit/' . $hour->uuid; ?>">Edit</a></td>
-                        <td><a href="<?= Config::get('URL') . 'hours/delete/' . $hour->uuid; ?>">Delete</a></td>
+                        <td><a href="<?= Config::get('URL') . 'hours/view/' . $hour->id; ?>">View</a></td>
+                        <td><a href="<?= Config::get('URL') . 'hours/edit/' . $hour->id; ?>">Edit</a></td>
+                        <td><a href="<?= Config::get('URL') . 'hours/delete/' . $hour->id; ?>">Delete</a></td>
                     </tr>
                 <?php } ?>
             </tbody>

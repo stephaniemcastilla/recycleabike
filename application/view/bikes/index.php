@@ -72,23 +72,23 @@
               </tr>
               </thead>
               <tbody>
-                  <?php foreach($this->bikes as $key => $value) { ?>
+                  <?php foreach($this->bikes as $key => $bike) { ?>
                       <tr>
-                          <td><?= htmlentities($value->id); ?></td>
-                          <td><img src="<?= Config::get('URL') . htmlentities($value->photo); ?>" width="50px"/></td>
-                          <td><?= htmlentities($value->make); ?></td>
-                          <td><?= htmlentities($value->model); ?></td>
-                          <td><?= htmlentities($value->color); ?></td>
-                          <td><?= htmlentities($value->price); ?></td>
-                          <td><?= htmlentities($value->serial); ?></td>
-                          <td><?= htmlentities($value->status); ?></td>
-                          <td><?= htmlentities($value->source); ?></td>
-                          <td><?= htmlentities($value->mechanic); ?></td>
-                          <td><?= htmlentities($value->date_in); ?></td>
-                          <td><?= htmlentities($value->date_out); ?></td>
-                          <td><a href="<?= Config::get('URL') . 'bikes/view/' . $value->uuid; ?>">View</a></td>
-                          <td><a href="<?= Config::get('URL') . 'bikes/edit/' . $value->uuid; ?>">Edit</a></td>
-                          <td><a href="<?= Config::get('URL') . 'bikes/delete/' . $value->uuid; ?>">Delete</a></td>
+                          <td><?= htmlentities($bike->id); ?></td>
+                          <td><img src="<?= Config::get('URL') . htmlentities($bike->photo); ?>" width="50px"/></td>
+                          <td><?= htmlentities($bike->make); ?></td>
+                          <td><?= htmlentities($bike->model); ?></td>
+                          <td><?= htmlentities($bike->color); ?></td>
+                          <td><?= htmlentities($bike->price); ?></td>
+                          <td><?= htmlentities($bike->serial); ?></td>
+                          <td><?= htmlentities($bike->status); ?></td>
+                          <td><?= htmlentities($bike->source); ?></td>
+                          <td><?= htmlentities($bike->mechanic_id); ?></td>
+                          <td><?= htmlentities($bike->date_in); ?></td>
+                          <td><?= htmlentities($bike->date_out); ?></td>
+                          <td><a href="<?= Config::get('URL') . 'bikes/view/' . $bike->id; ?>">View</a></td>
+                          <td><a href="<?= Config::get('URL') . 'bikes/edit/' . $bike->id; ?>">Edit</a></td>
+                          <td><a href="<?= Config::get('URL') . 'bikes/delete/' . $bike->id; ?>">Delete</a></td>
                       </tr>
                   <?php } ?>
               </tbody>

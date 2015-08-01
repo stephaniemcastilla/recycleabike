@@ -34,6 +34,5 @@
     <link href="<?php echo Config::get('URL'); ?>vendor/metronic/admin/layout3/css/custom.css" rel="stylesheet" type="text/css"/>
     <!-- CSS -->
     <link rel="stylesheet" href="<?php echo Config::get('URL'); ?>css/style.css" />
-    <script src="<?php echo Config::get('URL'); ?>js/script.js" type="text/javascript"></script>
 </head>
 <body>

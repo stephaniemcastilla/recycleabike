@@ -14,6 +14,7 @@ class HoursController extends Controller
     {
         $this->View->render('hours/index', array(
             'hours' => HoursModel::getAllHours(),
+            'events' => EventsModel::getAllEvents(), 
             'people' => PeopleModel::getAllPeople()
         ));
     }
@@ -21,14 +22,14 @@ class HoursController extends Controller
     public function create()
     {
 
-        $status = "out";
+        $status = "in";
         
         $points_setting = SettingModel::getSettingValue(1);
         $revenue_setting = SettingModel::getSettingValue(2);
 
         $start = Request::post('start');
         $end = Request::post('end');
-        
+
         $start = strtotime($start);
         $end = strtotime($end);
         $total_time = $end - $start;
@@ -38,20 +39,25 @@ class HoursController extends Controller
         $person_time = $person_time + $total_time;
         PeopleModel::updatePersonTime(Request::post('person_id'), $person_time);
 
-        $type = Request::post('type');
+        $mode = Request::post('mode');
 
         $total_points = "NULL"; 
         $total_revenue = "NULL";
+        $available_points = "NULL"; 
         
-        if ($type == "points_granted"){
+        if ($mode == "points"){
           
           $total_points = $total_time * $points_setting;
            
-          $person_points = PeopleModel::getPersonPoints(Request::post('person_id'));
-          $person_points = $person_points + $total_points;
-          PeopleModel::updatePersonPoints(Request::post('person_id'), $person_points);
+          $person_total_points = PeopleModel::getPersonTOtalPoints(Request::post('person_id'));
+          $person_total_points = $person_total_points + $total_points;
+          PeopleModel::updatePersonTotalPoints(Request::post('person_id'), $person_total_points);
+                    
+          $person_available_points = PeopleModel::getPersonAvailablePoints(Request::post('person_id'));
+          $person_available_points = $person_available_points + $total_points;
+          PeopleModel::updatePersonAvailablePoints(Request::post('person_id'), $person_available_points);
           
-        } else if ($type == "revenue_earned"){
+        } else if ($mode == "revenue"){
           
           $total_revenue = (((date('H', $total_time) * 60) + (date('i', $total_time))) * $revenue_setting)/60;
           
@@ -63,41 +69,41 @@ class HoursController extends Controller
         $start = date('H:i', $start);
         $end = date('H:i', $end);
 
-        HoursModel::createHour(Request::post('date'), Request::post('person_id'), $start, $end, $status, $total_time, $total_points, $total_revenue, Request::post('event_id'));
+        HoursModel::createHour(Request::post('person_id'), Request::post('event_id'), $start, $end, $mode, $status, $total_time, $total_points, $total_revenue);
         
         Redirect::to('hours');
     }
 
-    public function edit($uuid)
+    public function edit($id)
     {
-        $this->View->render('hour/edit', array(
-            'hour' => HoursModel::getHour($uuid)
+        $this->View->render('hours/edit', array(
+            'hour' => HoursModel::getHour($id)
         ));
     }
 
     public function editSave()
     {
-        HoursModel::updateHour(Request::post('uuid'), Request::post('first'), Request::post('last'), Request::post('email'));
+        HoursModel::updateHour(Request::post('id'), Request::post('first'), Request::post('last'), Request::post('email'));
         Redirect::to('hours');
     }
 
-    public function delete($uuid)
+    public function delete($id)
     {
-        HoursModel::deleteHour($uuid);
+        HoursModel::deleteHour($id);
         Redirect::to('hours');
     }
 
     public function time()
     {
-        $this->View->render('hour/time', array(
+        $this->View->render('hours/time', array(
             'time' => HoursModel::getAllTime()
         ));
     }
     
-    public function timeByEvent($uuid)
+    public function timeByEvent($id)
     {
         $this->View->render('hours/timebyevent', array(
-            'time' => HoursModel::getTimeByEvent($uuid)
+            'time' => HoursModel::getTimeByEvent($id)
         ));
     }
 }

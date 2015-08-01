@@ -1,13 +1,5 @@
-<link rel="stylesheet" href="<?php echo Config::get('URL'); ?>css/style.css" />
-<link rel="stylesheet" href="<?php echo Config::get('URL'); ?>vendor/metronic/global/css/components.css" />
-<link rel="stylesheet" href="<?php echo Config::get('URL'); ?>vendor/metronic/global/css/plugins.css" />
-<link rel="stylesheet" href="<?php echo Config::get('URL'); ?>vendor/metronic/global/plugins/bootstrap/css/bootstrap.css" />
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="<?php echo Config::get('URL'); ?>vendor/metronic/global/plugins/bootstrap/js/bootstrap.js"></script>
-<script src="<?php echo Config::get('URL'); ?>vendor/metronic/global/scripts/metronic.js"></script>
-
 <br>
+<div style="margin: 0px 230px;"><a href="<?= Config::get('URL') . 'timeclock/event/' . htmlentities($this->event); ?>" style="float: left;">< Back</a></div>
 <center><h1>Sign Out</h1>
 
 <div class="timeclock" style="margin-top: 50px;">
@@ -22,17 +14,17 @@
             <td style="text-align: right;">
               <form action="<?= Config::get('URL') . 'timeclock/signoutconfirm/'; ?>" method="post">
                 <?php foreach($this->hours as $key => $hour) {
-                      if (htmlentities($hour->person_id)==htmlentities($person->person_uuid)){
+                      if (htmlentities($hour->person_id)==htmlentities($person->id)){
                         ?>
-                        <input name="hour_id" type="hidden" value="<?= htmlentities($hour->hour_uuid); ?>"/>
+                        <input name="hour_id" type="hidden" value="<?= htmlentities($hour->id); ?>"/>
                         <input name="hour_start" type="hidden" value="<?= htmlentities($hour->start); ?>"/>
+                        <input name="hour_mode" type="hidden" value="<?= htmlentities($hour->mode); ?>"/>
                         <?php             
                         }
                       }
                 ?>
                 <input name="event_id" type="hidden" value="<?= htmlentities($this->event); ?>"/>
-                <input name="person_id" type="hidden" value="<?= htmlentities($person->person_uuid); ?>"/>
-                <input name="hour_type" type="hidden" value="points_granted"/>
+                <input name="person_id" type="hidden" value="<?= htmlentities($person->id); ?>"/>
                 <input type="submit" value="Sign Out">
               </form>
             </td>

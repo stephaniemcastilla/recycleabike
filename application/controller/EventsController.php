@@ -26,20 +26,22 @@ class EventsController extends Controller
     {
         $this->View->render('events/index', array(
             'events' => EventsModel::getAllEvents(),
-            'programs' => ProgramsModel::getAllPrograms()
+            'programs' => ProgramsModel::getAllPrograms(), 
+            'hours' => HoursModel::getAllHours()
         ));
     }
     
     /**
      * This method controls what happens when you move to /events/view in your app.
      */    
-    public function view($uuid)
+    public function view($id)
     {
         $this->View->render('events/view', array(
-            'event' => EventsModel::getEventByID($uuid),
-            'hours' => HoursModel::getHoursByEvent($uuid),
+            'event' => EventsModel::getEventByID($id),
+            'hours' => HoursModel::getHoursByEvent($id),
             'people' => PeopleModel::getAllPeople(),
-            'program' => ProgramsModel::getProgramByEventID($uuid)
+            'program' => ProgramsModel::getProgramByEventID($id),
+            'programs' => ProgramsModel::getAllPrograms()
         ));
     }
     
@@ -51,18 +53,19 @@ class EventsController extends Controller
     public function create()
     {        
         EventsModel::createEvent(Request::post('date'), Request::post('start'), Request::post('end'), Request::post('program_id'));
-        Redirect::to('events');
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        Redirect::back();
     }
 
     /**
      * This method controls what happens when you move to /events/edit(/XX) in your app.
      * Shows the current content of the event and an editing form.
-     * @param $uuid int id of the event
+     * @param $id int id of the event
      */
-    public function edit($uuid)
+    public function edit($id)
     {
         $this->View->render('events/edit', array(
-            'event' => EventsModel::getEventByID($uuid),
+            'event' => EventsModel::getEventByID($id),
             'programs' => ProgramsModel::getAllPrograms()
         ));
     }
@@ -72,21 +75,21 @@ class EventsController extends Controller
      * Edits a event (performs the editing after form submit).
      * POST request.
      */
-    public function editSave()
+    public function update()
     {
-        EventsModel::updateEvent(Request::post('uuid'), Request::post('id'), Request::post('name'));
-        Redirect::to('event');
+        EventsModel::updateEvent(Request::post('id'), Request::post('date'), Request::post('start'), Request::post('end'), Request::post('program_id'));
+        Redirect::back();
     }
 
     /**
      * This method controls what happens when you move to /events/delete(/XX) in your app.
      * Deletes a event. In a real application a deletion via GET/URL is not recommended, but for demo purposes it's
      * totally okay.
-     * @param int $uuid id of the event
+     * @param int $id id of the event
      */
-    public function delete($uuid)
+    public function delete($id)
     {
-        EventsModel::deleteEvent($uuid);
+        EventsModel::deleteEvent($id);
         Redirect::to('events');
     }
 }

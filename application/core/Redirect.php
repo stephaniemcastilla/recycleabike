@@ -24,4 +24,14 @@ class Redirect
 	{
 		header("location: " . Config::get('URL') . $path);
 	}
+  
+	/**
+	 * To the last page
+	 *
+	 * @param $path
+	 */
+	public static function back()
+	{
+		header('Location: ' . $_SERVER['HTTP_REFERER']);
+	}
 }

@@ -29,14 +29,14 @@ class BikesModel
     {
         $database = DatabaseFactory::getFactory()->getConnection();
 
-        $sql = "SELECT * FROM bikes WHERE uuid = :uuid LIMIT 1";
+        $sql = "SELECT * FROM bikes WHERE id = :id LIMIT 1";
         $query = $database->prepare($sql);
-        $query->execute(array(':uuid' => $id));
+        $query->execute(array(':id' => $id));
 
         return $query->fetch();
     }
 
-    public static function createBike($id, $make, $model, $color, $price, $serial, $photo, $source, $status, $mechanic, $date_in, $date_out)
+    public static function createBike($rab_id, $make, $model, $color, $price, $serial, $photo, $source, $status, $mechanic, $date_in, $date_out)
     {     
         if (!$make || strlen($make) == 0) {
             Session::add('feedback_negative', Text::get('FEEDBACK_BIKE_CREATION_FAILED'));
@@ -45,9 +45,9 @@ class BikesModel
         
         $database = DatabaseFactory::getFactory()->getConnection();
 
-        $sql = "INSERT INTO bikes (id, make, model, color, price, serial, photo, source, status, date_in, date_out, user_id) VALUES (:id, :make, :model, :color, :price, :serial, :photo, :source, :status, :date_in, :date_out, :user_id)";
+        $sql = "INSERT INTO bikes (rab_id, make, model, color, price, serial, photo, source, status, date_in, date_out) VALUES (:rab_id, :make, :model, :color, :price, :serial, :photo, :source, :status, :date_in, :date_out)";
         $query = $database->prepare($sql);
-        $query->execute(array(':id' => $id,':make' => $make, ':model' => $model, ':color' => $color, ':price' => $price, ':serial' => $serial, ':photo' => $photo, ':source' => $source, ':date_in' => $date_in, ':status' => $status, ':date_out' => $date_out, ':user_id' => Session::get('user_id')));
+        $query->execute(array(':rab_id' => $rab_id,':make' => $make, ':model' => $model, ':color' => $color, ':price' => $price, ':serial' => $serial, ':photo' => $photo, ':source' => $source, ':status' => $status, ':date_in' => $date_in, ':date_out' => $date_out));
 
         if ($query->rowCount() == 1) {
             return true;
@@ -57,7 +57,7 @@ class BikesModel
         return false;
     }
 
-    public static function updateBike($uuid, $id, $make, $model, $color, $price, $serial, $photo, $source, $status, $mechanic, $date_in, $date_out)
+    public static function updateBike($id, $rab_id, $make, $model, $color, $price, $serial, $photo, $source, $status, $mechanic, $date_in, $date_out)
     {
         // if (!$make) {
         //   Session::add('feedback_negative', Text::get('FEEDBACK_BIKE_EDITING_FAILED'));
@@ -66,9 +66,9 @@ class BikesModel
         
         $database = DatabaseFactory::getFactory()->getConnection();
 
-        $sql = "UPDATE bikes SET make = :make, model = :model, color = :color,  price = :price, serial = :serial, photo = :photo, source = :source, status = :status, mechanic = :mechanic, date_in = :date_in, date_out = :date_out WHERE uuid = :uuid AND user_id = :user_id LIMIT 1";
+        $sql = "UPDATE bikes SET make = :make, model = :model, color = :color,  price = :price, serial = :serial, photo = :photo, source = :source, status = :status, mechanic = :mechanic, date_in = :date_in, date_out = :date_out WHERE id = :id LIMIT 1";
         $query = $database->prepare($sql);
-        $query->execute(array(':uuid' => $uuid, ':make' => $make, ':model' => $model, ':color' => $color, ':price' => $price, ':serial' => $serial, ':photo' => $photo, ':source' => $source, ':status' => $status, ':mechanic' => $mechanic, ':date_in' => $date_in, ':date_out' => $date_out, ':user_id' => Session::get('user_id')));
+        $query->execute(array(':id' => $id, ':rab_id' => $rab_id, ':make' => $make, ':model' => $model, ':color' => $color, ':price' => $price, ':serial' => $serial, ':photo' => $photo, ':source' => $source, ':status' => $status, ':mechanic' => $mechanic, ':date_in' => $date_in, ':date_out' => $date_out));
 
         if ($query->rowCount() == 1) {
             return true;
@@ -78,17 +78,17 @@ class BikesModel
         return false;
     }
 
-    public static function deleteBike($uuid)
+    public static function deleteBike($id)
     {
-        if (!$uuid) {
+        if (!$id) {
             return false;
         }
 
         $database = DatabaseFactory::getFactory()->getConnection();
 
-        $sql = "DELETE FROM bikes WHERE uuid = :uuid LIMIT 1";
+        $sql = "DELETE FROM bikes WHERE id = :id LIMIT 1";
         $query = $database->prepare($sql);
-        $query->execute(array(':uuid' => $uuid));
+        $query->execute(array(':id' => $id));
 
         if ($query->rowCount() == 1) {
             return true;

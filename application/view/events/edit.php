@@ -1,27 +1,29 @@
-<div class="container">
-    <h1></h1>
-
-    <div class="box">
-        <h2>Edit Event</h2>
-
-        <!-- echo out the system feedback (error and success messages) -->
-        <?php $this->renderFeedbackMessages(); ?>
-
-        <?php if ($this->event) { ?>
+<div class="modal fade" id="basic" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">Edit Event</h4>
+			</div>
+			<div class="modal-body">
+         <p>
             <form method="post" action="<?php echo Config::get('URL');?>events/update">
                  <label>Edit event: </label><br/>
+                 <input type="text" name="id" value="<?php echo htmlentities($this->event->id); ?>"/><br/>
                  <input type="date" name="date" value="<?php echo htmlentities($this->event->date); ?>"/><br/>
                  <input type="time" name="start" value="<?php echo htmlentities($this->event->start); ?>"/><br/>
                  <input type="time" name="end" value="<?php echo htmlentities($this->event->end); ?>"/><br/>
                  <select name="program_id">
                  <?php foreach($this->programs as $key => $value) { ?>
-                     <option value="<?= htmlentities($value->uuid); ?>"><?= htmlentities($value->name); ?></option>
+                     <option value="<?= htmlentities($value->id); ?>"><?= htmlentities($value->name); ?></option>
                  <?php } ?>
                  </select><br/>
                  <input type="submit" class="btn blue" value='Update Event' / >
        			 </form>
-        <?php } else { ?>
-            <p>This bike does not exist.</p>
-        <?php } ?>
-    </div>
+				<button type="button" class="btn default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
 </div>

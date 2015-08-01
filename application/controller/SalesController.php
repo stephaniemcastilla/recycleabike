@@ -14,7 +14,8 @@ class SalesController extends Controller
     public function index()
     {
         $this->View->render('sales/index', array(
-            'saless' => SalesModel::getAllSales()
+            'sales' => SalesModel::getAllSales(),
+            'parts' => PartsModel::getAllParts()
         ));
     }
 

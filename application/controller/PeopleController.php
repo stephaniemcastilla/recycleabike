@@ -23,7 +23,9 @@ class PeopleController extends Controller
     {
         $this->View->render('people/index', array(
             'type' => $type,
-            'people' => PeopleModel::getPeopleByType($type)
+            'people' => PeopleModel::getPeopleByType($type), 
+            'points' => PeopleModel::getAllTotalPoints(),
+            'time' => PeopleModel::getAllTotalTime()
         ));
     }
 
@@ -61,28 +63,25 @@ class PeopleController extends Controller
         Redirect::to('people');
     }
     
-    public function getVolunteersByLastName()
+    public function getPeopleByLast()
     {
-        $keyword = '%'.$_POST['keyword'].'%';
+        $last = $_POST['keyword'].'%';
         $event = $_POST['event'];
-        
-        $volunteers = PeopleModel::getVolunteersByLastName($keyword, $event);
-        
-        foreach ($volunteers as $volunteer) {
-          echo "<li style='list-style: none; text-align: left;'>".$volunteer->firstname." ".$volunteer->lastname."<a href='" . URL . "timehours/sign_in?event=" . $event . "&contact=" . $volunteer->id . "' class='btn btn-primary' style='float: right; margin-top: 15px;'>SIGN IN</a></li>";
+
+        $people = PeopleModel::getPeopleByLast($last);
+
+        foreach ($people as $person) {
+          echo '<tr>';
+          echo '<td>' . htmlentities($person->first) . ' ' . htmlentities($person->last) . '</td>';
+          echo '<td style="text-align: right;">';
+          echo '<a class="btn default" data-toggle="modal" href="#volunteer" onClick="signInVolunteer(' . htmlentities($person->id) .');">Volunteer</a> 
+                <a class="btn btn-primary" data-toggle="modal" href="#useshop" onClick="signInCustomer(' . htmlentities($person->id) .');">Use Shop</a> ';
+          echo '</td>';
+          echo '</tr>';
         }
 
-        echo "<a href='";
-        echo URL;
-        echo "timehours/register?event=".$event."'><div class='btn btn-success' style='margin: 20px 0px; font-size: 25px;'>Don't see your name? <b>REGISTER NOW > </b></div></a>";
     }
-
-    public function customers()
-    {
-        $this->View->render('people/customers', array(
-            'customers' => PeopleModel::getAllCustomers()
-        ));
-    }
+    
 }
 
 

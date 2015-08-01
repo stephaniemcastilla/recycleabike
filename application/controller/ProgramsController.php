@@ -24,30 +24,30 @@ class ProgramsController extends Controller
         Redirect::to('programs');
     }
 
-    public function view($uuid)
+    public function view($id)
     {
         $this->View->render('programs/view', array(
-            'program' => ProgramsModel::getProgramByID($uuid),
-            'events' => EventsModel::getEventsByProgram($uuid)
+            'program' => ProgramsModel::getProgramByID($id),
+            'events' => EventsModel::getEventsByProgram($id)
         ));
     }
 
-    public function edit($uuid)
+    public function edit($id)
     {
         $this->View->render('programs/edit', array(
-            'program' => ProgramsModel::getProgramByID($uuid)
+            'program' => ProgramsModel::getProgramByID($id)
         ));
     }
 
     public function update()
     {
-        ProgramsModel::updateProgram(Request::post('uuid'), Request::post('id'), Request::post('name'));
+        ProgramsModel::updateProgram(Request::post('id'), Request::post('id'), Request::post('name'));
         Redirect::to('programs');
     }
 
-    public function delete($uuid)
+    public function delete($id)
     {
-        ProgramsModel::deleteProgram($uuid);
+        ProgramsModel::deleteProgram($id);
         Redirect::to('programs');
     }
 }

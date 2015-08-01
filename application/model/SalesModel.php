@@ -7,9 +7,9 @@ class SalesModel
     {
         $database = DatabaseFactory::getFactory()->getConnection();
 
-        $sql = "SELECT * FROM sales WHERE user_id = :user_id";
+        $sql = "SELECT * FROM sales";
         $query = $database->prepare($sql);
-        $query->execute(array(':user_id' => Session::get('user_id')));
+        $query->execute();
 
         return $query->fetchAll();
     }
@@ -18,9 +18,9 @@ class SalesModel
     {
         $database = DatabaseFactory::getFactory()->getConnection();
 
-        $sql = "SELECT * FROM sales WHERE user_id = :user_id AND transaction_id = :transaction_id LIMIT 1";
+        $sql = "SELECT * FROM sales WHERE transaction_id = :transaction_id LIMIT 1";
         $query = $database->prepare($sql);
-        $query->execute(array(':user_id' => Session::get('user_id'), ':transaction_id' => $transaction_id));
+        $query->execute(array(':transaction_id' => $transaction_id));
 
         return $query->fetch();
     }

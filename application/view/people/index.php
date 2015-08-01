@@ -16,7 +16,8 @@
                  <form method="post" action="<?php echo Config::get('URL');?>people/create">
                      <input type="text" name="first" placeholder="First Name"/><br/>
                      <input type="text" name="last" placeholder="Last Name"/><br/>
-                     <input type="text" name="email" placeholder="Email Address Name"/><br/>                 
+                     <input type="text" name="email" placeholder="Email Address Name"/><br/>    
+                     <input type="hidden" name="type" value="<?= htmlentities($this->type)?>"/><br/>                 
              </p>
   				</div>
   				<div class="modal-footer">
@@ -30,7 +31,7 @@
   		<!-- /.modal-dialog -->
   	</div>
 
-    <a class="btn default" data-toggle="modal" href="#basic" style="float: right; margin-bottom: 25px;"> + Person </a>
+    <a class="btn default" data-toggle="modal" href="#basic" style="float: right; margin-bottom: 25px;"> + <?= ucwords(str_replace("_", " ", htmlentities($this->type))); ?> </a>
     <?php if ($this->people) { ?>
         <table class="table table-striped table-bordered table-hover">
             <thead>
@@ -38,26 +39,30 @@
                 <td>First</td>
                 <td>Last</td>
                 <td>Email</td>
-                <td>Total Time</td>
-                <td>Total Points</td>
-                <td>Total Revenue</td>
+                <td>Points</td>
                 <td>VIEW</td>
                 <td>EDIT</td>
                 <td>DELETE</td>
             </tr>
             </thead>
             <tbody>
-                <?php foreach($this->people as $key => $value) { ?>
+                <?php foreach($this->people as $key => $person) { ?>
                     <tr>
-                        <td><?= htmlentities($value->first); ?></td>
-                        <td><?= htmlentities($value->last); ?></td>
-                        <td><?= htmlentities($value->email); ?></td>
-                        <td><?= htmlentities($value->total_time); ?> Hours</td>
-                        <td><?= htmlentities($value->total_points); ?> Points</td>
-                        <td>$<?= htmlentities($value->total_revenue); ?></td>
-                        <td><a href="<?= Config::get('URL') . 'people/view/' . $value->person_uuid; ?>">View</a></td>
-                        <td><a href="<?= Config::get('URL') . 'people/edit/' . $value->person_uuid; ?>">Edit</a></td>
-                        <td><a href="<?= Config::get('URL') . 'people/delete/' . $value->person_uuid; ?>">Delete</a></td>
+                        <td><?= htmlentities($person->first); ?></td>
+                        <td><?= htmlentities($person->last); ?></td>
+                        <td><?= htmlentities($person->email); ?></td>
+                        <td>
+                          <?php $total_points = 0; ?>
+                          <?php foreach($this->points as $key => $point_total) { ?>
+                            <?php if(htmlentities($person->id)==htmlentities($point_total->person_id)){?>
+                              <?php $total_points = round($point_total->points,0); ?>
+                            <?php } ?>
+                          <?php } ?>
+                          <?php echo $total_points?>
+                        </td>
+                        <td><a href="<?= Config::get('URL') . 'people/view/' . $person->id; ?>">View</a></td>
+                        <td><a href="<?= Config::get('URL') . 'people/edit/' . $person->id; ?>">Edit</a></td>
+                        <td><a href="<?= Config::get('URL') . 'people/delete/' . $person->id; ?>">Delete</a></td>
                     </tr>
                 <?php } ?>
             </tbody>

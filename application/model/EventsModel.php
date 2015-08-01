@@ -31,9 +31,9 @@ class EventsModel
     {
         $database = DatabaseFactory::getFactory()->getConnection();
 
-        $sql = "SELECT * FROM events WHERE uuid = :uuid LIMIT 1";
+        $sql = "SELECT * FROM events WHERE id = :id LIMIT 1";
         $query = $database->prepare($sql);
-        $query->execute(array(':uuid' => $id));
+        $query->execute(array(':id' => $id));
 
         return $query->fetch();
     }
@@ -42,7 +42,7 @@ class EventsModel
     {
         $database = DatabaseFactory::getFactory()->getConnection();
 
-        $sql = "SELECT * FROM events INNER JOIN logs on logs.event_id = events.uuid WHERE logs.person_id = :person_id";
+        $sql = "SELECT * FROM events INNER JOIN logs on logs.event_id = events.id WHERE logs.person_id = :person_id";
         $query = $database->prepare($sql);
         $query->execute(array(':person_id' => $person_id));
 
@@ -82,18 +82,14 @@ class EventsModel
         return false;
     }
 
-    public static function updateEvent($uuid, $id, $name)
+    public static function updateEvent($id, $date, $start, $end, $program_id)
     {
-        if (!$name) {
-          Session::add('feedback_negative', Text::get('FEEDBACK_EVENT_EDITING_FAILED'));
-          return false;
-        }
         
         $database = DatabaseFactory::getFactory()->getConnection();
 
-        $sql = "UPDATE events SET id = :id, name = :name WHERE uuid = :uuid LIMIT 1";
+        $sql = "UPDATE events SET id = :id, date = :date, start = :start, end = :end, program_id = :program_id WHERE id = :id LIMIT 1";
         $query = $database->prepare($sql);
-        $query->execute(array(':id' => $id, ':name' => $name, ':uuid' => $uuid));
+        $query->execute(array(':id' => $id, ':date' => $date, ':start' => $start, ':end' => $end, ':program_id' => $program_id, ':id' => $id));
 
         if ($query->rowCount() == 1) {
             return true;
@@ -111,9 +107,9 @@ class EventsModel
 
         $database = DatabaseFactory::getFactory()->getConnection();
 
-        $sql = "DELETE FROM events WHERE uuid = :uuid LIMIT 1";
+        $sql = "DELETE FROM events WHERE id = :id LIMIT 1";
         $query = $database->prepare($sql);
-        $query->execute(array(':uuid' => $id));
+        $query->execute(array(':id' => $id));
 
         if ($query->rowCount() == 1) {
             return true;

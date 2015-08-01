@@ -11,7 +11,7 @@
             <form method="post" action="<?php echo Config::get('URL'); ?>people/update">
                 <label>Change text of person: </label>
                 <!-- we use htmlentities() here to prevent user input with " etc. break the HTML -->
-                <input type="hidden" name="uuid" value="<?php echo htmlentities($this->person->person_uuid); ?>" />
+                <input type="hidden" name="uuid" value="<?php echo htmlentities($this->person->id); ?>" />
                 <input type="text" name="first" value="<?php echo htmlentities($this->person->first); ?>" />
                 <input type="text" name="last" value="<?php echo htmlentities($this->person->last); ?>" />
                 <input type="text" name="email" value="<?php echo htmlentities($this->person->email); ?>" />

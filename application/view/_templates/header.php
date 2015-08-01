@@ -7,9 +7,6 @@
     			<div class="page-logo">
     				<a href="<?php echo Config::get('URL'); ?>"><img src="<?php echo Config::get('URL'); ?>img/rab_logo.jpg" alt="logo" width="150" class="logo-default"></a>
     			</div>
-    			<div class="header-right">
-    			  <a class="btn btn-primary" href="<?php echo Config::get('URL'); ?>timeclock/">Time Clock</a>
-          </div>
     			<!-- END LOGO -->
     			<!-- BEGIN RESPONSIVE MENU TOGGLER -->
     			<a href="javascript:;" class="menu-toggler"></a>
@@ -31,20 +28,17 @@
             <!-- navigation -->
             <ul class="nav navbar-nav">
                 <?php if (Session::userIsLoggedIn()) { ?>
-                    <li <?php if (View::checkForActiveController($filename, "dashboard")) { echo ' class="active" '; } ?> >
+                    <!-- <li <?php if (View::checkForActiveController($filename, "dashboard")) { echo ' class="active" '; } ?> >
                         <a href="<?php echo Config::get('URL'); ?>dashboard/">Home</a>
-                    </li>
+                    </li> -->
                     <li <?php if (View::checkForActiveController($filename, "events")) { echo ' class="active" '; } ?> >
-                        <a href="<?php echo Config::get('URL'); ?>events/">Schedule</a>
+                        <a href="<?php echo Config::get('URL'); ?>events/">Events</a>
                     </li>
-                    <li <?php if (View::checkForActiveController($filename, "hours")) { echo ' class="active" '; } ?> >
-                      <a href="<?php echo Config::get('URL'); ?>hours/">Hours</a>
-                    </li>
+                    <!-- <li <?php if (View::checkForActiveController($filename, "hours")) { echo ' class="active" '; } ?> >
+                        <a href="<?php echo Config::get('URL'); ?>hours/">Hours</a>
+                    </li> -->
                     <li <?php if (View::checkForActiveController($filename, "sales")) { echo ' class="active" '; } ?> >
                         <a href="<?php echo Config::get('URL'); ?>sales/">Sales</a>
-                    </li>
-                    <li <?php if (View::checkForActiveController($filename, "donations")) { echo ' class="active" '; } ?> >
-                        <a href="<?php echo Config::get('URL'); ?>donations/">Donations</a>
                     </li>
                     <li <?php if (View::checkForActiveController($filename, "bikes")) { echo ' class="active" '; } ?> >
                         <a href="<?php echo Config::get('URL'); ?>bikes/">Bikes</a>
@@ -53,6 +47,15 @@
                         <a href="<?php echo Config::get('URL'); ?>parts/">Parts</a>
                     </li>
                     <li <?php if (View::checkForActiveController($filename, "people")) { echo ' class="active" '; } ?> >
+                        <a href="<?php echo Config::get('URL'); ?>people/type/volunteers">Volunteers</a>
+                    </li>
+                    <!-- <li <?php if (View::checkForActiveController($filename, "people")) { echo ' class="active" '; } ?> >
+                        <a href="<?php echo Config::get('URL'); ?>people/type/customers">Customers</a>
+                    </li>
+                    <li <?php if (View::checkForActiveController($filename, "people")) { echo ' class="active" '; } ?> >
+                        <a href="<?php echo Config::get('URL'); ?>people/type/donors">Donors</a>
+                    </li> -->
+                    <!-- <li <?php if (View::checkForActiveController($filename, "people")) { echo ' class="active" '; } ?> >
                         <a href="<?php echo Config::get('URL'); ?>people/" data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;" class="dropdown-toggle hover-initialized">People</a>
                         <ul class="dropdown-menu">
                           <li <?php if (View::checkForActiveController($filename, "people")) { echo ' class="active" '; } ?> >
@@ -65,11 +68,11 @@
                               <a href="<?php echo Config::get('URL'); ?>people/type/donors">Donors</a>
                           </li>
                         </ul>
-                    </li>
-                    <li <?php if (View::checkForActiveController($filename, "programs")) { echo ' class="active" '; } ?> >
+                    </li> -->
+                    <!-- <li <?php if (View::checkForActiveController($filename, "programs")) { echo ' class="active" '; } ?> >
                         <a href="<?php echo Config::get('URL'); ?>programs/">Programs</a>
-                    </li>
-                    <li <?php if (View::checkForActiveController($filename, "part")) { echo ' class="active" '; } ?> >
+                    </li> -->
+                    <!-- <li <?php if (View::checkForActiveController($filename, "part")) { echo ' class="active" '; } ?> >
                         <a href="" data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;" class="dropdown-toggle hover-initialized">Settings</a>
                         <ul class="dropdown-menu">
                             <li <?php if (View::checkForActiveController($filename, "overview")) { echo ' class="active" '; } ?> >
@@ -82,7 +85,7 @@
                                 <a href="<?php echo Config::get('URL'); ?>login/logout">Logout</a>
                             </li>
                         </ul>
-                    </li>                             
+                    </li>  -->                            
                 <?php } else { ?>
                     <!-- for not logged in users -->
                     <li <?php if (View::checkForActiveControllerAndAction($filename, "login/index")) { echo ' class="active" '; } ?> >
@@ -109,4 +112,3 @@
       				<div class="col-md-12 col-sm-12">
       					<!-- BEGIN PORTLET-->
       					<div class="portlet light ">
-      						<div class="portlet-title">

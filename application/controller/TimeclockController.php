@@ -18,23 +18,23 @@ class TimeclockController extends Controller
 
     public function index()
     {
-        $this->View->renderWithoutHeaderAndFooter('timeclock/index', array(
+        $this->View->renderFullscreen('timeclock/index', array(
             'events' => EventsModel::getTodaysEvents(),
             'programs' => ProgramsModel::getAllPrograms()
         ));
     }
     
-    public function event($event_id)
+    public function event($id)
     {
-        $this->View->renderWithoutHeaderAndFooter('timeclock/event', array(
-            'event' => EventsModel::getEventByID($event_id),
-            'program' => ProgramsModel::getProgramByEventID($event_id)
+        $this->View->renderFullscreen('timeclock/event', array(
+            'event' => EventsModel::getEventByID($id),
+            'program' => ProgramsModel::getProgramByEventID($id)
         ));
     }
     
     public function newEvent()
     {
-        $this->View->renderWithoutHeaderAndFooter('timeclock/newevent', array(
+        $this->View->renderFullscreen('timeclock/newevent', array(
             'programs' => ProgramsModel::getAllPrograms()
         ));
     }
@@ -47,16 +47,24 @@ class TimeclockController extends Controller
     
     public function register()
     {
-        $this->View->renderWithoutHeaderAndFooter('timeclock/register');
+        $this->View->renderFullscreen('timeclock/register');
     }
     
-    public function signIn($event_id)
+    public function signInReason($id)
     {
-        $this->View->renderWithoutHeaderAndFooter('timeclock/signin', array(
-            'people' => PeopleModel::getPeopleByEventNotSignedIn($event_id),
-            'volunteers' => PeopleModel::getVolunteersExcludedByEvent($event_id),
-            'customers' => PeopleModel::getCustomersExcludedByEvent($event_id),
-            'event' => $event_id
+        $this->View->renderFullscreen('timeclock/signin_reason', array(
+            'people' => PeopleModel::getPeopleByEventNotSignedIn($id),
+            'volunteers' => PeopleModel::getVolunteersExcludedByEvent($id),
+            'customers' => PeopleModel::getCustomersExcludedByEvent($id),
+            'event' => $id
+        ));
+    }
+    
+    public function signIn($id)
+    {
+        $this->View->renderFullscreen('timeclock/signin', array(
+            'people' => PeopleModel::getPeopleByEventNotSignedIn($id),
+            'event' => $id
         ));
     }
     
@@ -64,29 +72,30 @@ class TimeclockController extends Controller
     {        
         $person_id = Request::post('person_id');
         $event_id = Request::post('event_id');
-        $date = date("Y-m-d");
-        $start = date("H:i:s"); 
-        $end = "00:00:00";
+        $mode = Request::post('mode');
+        $start = date("Y-m-d H:i:s"); 
+        $end = "";
         $status = "in";
         $total_time = 0;
         $total_points = 0;
         $total_revenue = 0;
         
-        HoursModel::createHour($date, $person_id, $start, $end, $status, $total_time, $total_points, $total_revenue, $event_id);
+        HoursModel::createHour(Request::post('person_id'), Request::post('event_id'), $start, $end, $mode, $status, $total_time, $total_points, $total_revenue);
         
-        $this->View->renderWithoutHeaderAndFooter('timeclock/signinconfirm', array(
+        $this->View->renderFullscreen('timeclock/signinconfirm', array(
           'person' => PeopleModel::getPersonByID($person_id),
+          'person_points' => PeopleModel::getPersonTotalPoints($person_id),
           'event' => EventsModel::getEventByID($event_id),
           'program' => ProgramsModel::getProgramByEventID($event_id)
         ));
     }
     
-    public function signOut($event_id)
+    public function signOut($id)
     {
-        $this->View->renderWithoutHeaderAndFooter('timeclock/signout', array(
-            'people' => PeopleModel::getPeopleByEventSignedIn($event_id),
-            'hours' => HoursModel::getHoursByEvent($event_id),
-            'event' => $event_id
+        $this->View->renderFullscreen('timeclock/signout', array(
+            'people' => PeopleModel::getPeopleByEventSignedIn($id),
+            'hours' => HoursModel::getHoursByEvent($id),
+            'event' => $id
         ));
     }
     
@@ -96,76 +105,76 @@ class TimeclockController extends Controller
         $points_setting = SettingModel::getSettingValue(1);
         $revenue_setting = SettingModel::getSettingValue(2);
         
-        $hour_uuid = Request::post('hour_id');
-        $person_uuid = Request::post('person_id');
-        $event_uuid = Request::post('event_id');
+        $hour_id = Request::post('hour_id');
+        $person_id = Request::post('person_id');
+        $event_id = Request::post('event_id');
         $status = "out";
         
         $start = Request::post('hour_start');
-        $end = date("H:i:s");
+        $end = date("Y-m-d H:i:s");
         
         $start = strtotime($start);
         $end = strtotime($end);
         $total_time = $end - $start;
         $total_time = $total_time/60/60;
         
-        $person_time = PeopleModel::getPersonTime(Request::post('person_id'));
-        $person_time = $person_time + $total_time;
-        PeopleModel::updatePersonTime(Request::post('person_id'), $person_time);
-
-        $type = Request::post('type');
+        $mode = Request::post('hour_mode');
 
         $total_points = "NULL"; 
         $total_revenue = "NULL";
         
-        if ($type == "points_granted"){
+        if ($mode == "points"){
           
           $total_points = $total_time * $points_setting;
-           
-          $person_points = PeopleModel::getPersonPoints(Request::post('person_id'));
-          $person_points = $person_points + $total_points;
-          PeopleModel::updatePersonPoints(Request::post('person_id'), $person_points);
           
-        } else if ($type == "revenue_earned"){
+        } else if ($mode == "revenue"){
           
-          $total_revenue = (((date('H', $total_time) * 60) + (date('i', $total_time))) * $revenue_setting)/60;
-          
-          $person_revenue = PeopleModel::getPersonRevenue(Request::post('person_id'));
-          $person_revenue = $person_revenue + $total_revenue;
-          PeopleModel::updatePersonRevenue(Request::post('person_id'), $person_revenue);
+          $total_revenue = ($total_time * $revenue_setting);
         }     
-                        
-        $start = date('H:i', $start);
-        $end = date('H:i', $end);
+                                
+        $end = date('Y-m-d H:i:s', $end);
                 
-        HoursModel::signOutHour($hour_uuid, $end, $status,$total_time, $total_points, $total_revenue);
+        HoursModel::signOutHour($hour_id, $end, $status, $total_time, $total_points, $total_revenue);
         
-        $this->View->renderWithoutHeaderAndFooter('timeclock/signoutconfirm', array(
-          'person' => PeopleModel::getPersonByID($person_uuid),
-          'event' => EventsModel::getEventByID($event_uuid),
-          'hour' => HoursModel::getHourByID($hour_uuid)
+        $this->View->renderFullscreen('timeclock/signoutconfirm', array(
+          'person' => PeopleModel::getPersonByID($person_id),
+          'person_points' => PeopleModel::getPersonTotalPoints($person_id),
+          'event' => EventsModel::getEventByID($event_id),
+          'hour' => HoursModel::getHourByID($hour_id)
         ));
     }
     
     public function signOutFinalize()
     {        
         $person_id = Request::post('person_id');
-        $event_id = Request::post('event_id');
+        $id = Request::post('id');
         
-        HoursModel::signOutHour($uuid, $end);
+        HoursModel::signOutHour($id, $end);
         
-        $this->View->renderWithoutHeaderAndFooter('timeclock/signoutconfirm', array(
+        $this->View->renderFullscreen('timeclock/signoutconfirm', array(
           'person' => PeopleModel::getPersonByID($person_id),
-          'event' => EventsModel::getEventByID($event_id)
+          'event' => EventsModel::getEventByID($id)
         ));
     }
     
-    public function status()
+    public function view($id)
     {
-        $this->View->renderWithoutHeaderAndFooter('timeclock/status');
+        $this->View->renderFullscreen('timeclock/view', array(
+            'hours' => HoursModel::getHoursByEvent($id),
+            'people' => PeopleModel::getAllPeople(),
+            'event' => $id
+        ));
     }
     public function purchase()
     {
-        $this->View->renderWithoutHeaderAndFooter('timeclock/purchase');
+        $this->View->renderFullscreen('timeclock/purchase');
     }
+    
+    public function newsletter($id)
+    {
+        $this->View->renderFullscreen('timeclock/newsletter', array(
+          'event' => $id
+        ));
+    }
+    
 }

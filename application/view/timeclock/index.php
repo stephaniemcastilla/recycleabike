@@ -20,21 +20,21 @@
         <tbody>
             <?php foreach($this->events as $key => $event) { ?>
                 <tr>
-                    <td><a href="<?= Config::get('URL') . 'events/edit/' . $event->uuid; ?>">Edit</a></td>
+                    <td><a href="<?= Config::get('URL') . 'events/edit/' . $event->id; ?>">Edit</a></td>
                     <td><?= htmlentities($event->date); ?></td>
                     <td><?= htmlentities($event->start); ?></td>
                     <td><?= htmlentities($event->end); ?></td>
                     <?php foreach($this->programs as $key => $program) { ?>
-                      <?php if(htmlentities($program->uuid)==htmlentities($event->program_id)){?>
+                      <?php if(htmlentities($program->id)==htmlentities($event->program_id)){?>
                         <td><?= htmlentities($program->name); ?></td>
                       <?php } ?>
                     <?php } ?>
-                    <td><a href="<?= Config::get('URL') . 'timeclock/event/' . $event->uuid; ?>">Log Time</a></td>
+                    <td><a href="<?= Config::get('URL') . 'timeclock/event/' . $event->id; ?>">Log Time</a></td>
                 </tr>
             <?php } ?>
         </tbody>
     </table>
     <?php } else { ?>
-        <div>No events yet. Create some !</div>
+        <div>No events scheduled for today.</div>
     <?php } ?>
 </div>

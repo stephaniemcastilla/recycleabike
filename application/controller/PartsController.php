@@ -20,34 +20,34 @@ class PartsController extends Controller
       
     public function create()
     {        
-        PartsModel::createPart(Request::post('id'), Request::post('name'));
+        PartsModel::createPart(Request::post('name'), Request::post('model'), Request::post('cost'), Request::post('price'), Request::post('points'));
         Redirect::to('parts');
     }
 
-    public function view($uuid)
+    public function view($id)
     {
         $this->View->render('parts/view', array(
-            'part' => PartsModel::getPartByID($uuid),
-            'events' => EventModel::getEventsByPart($uuid)
+            'part' => PartsModel::getPartByID($id),
+            'events' => EventModel::getEventsByPart($id)
         ));
     }
 
-    public function edit($uuid)
+    public function edit($id)
     {
         $this->View->render('parts/edit', array(
-            'part' => PartsModel::getPartByID($uuid)
+            'part' => PartsModel::getPartByID($id)
         ));
     }
 
     public function update()
     {
-        PartsModel::updatePart(Request::post('uuid'), Request::post('id'), Request::post('name'));
+        PartsModel::updatePart(Request::post('id'), Request::post('id'), Request::post('name'));
         Redirect::to('parts');
     }
 
-    public function delete($uuid)
+    public function delete($id)
     {
-        PartsModel::deletePart($uuid);
+        PartsModel::deletePart($id);
         Redirect::to('parts');
     }
 }

@@ -18,9 +18,9 @@ class ProgramsModel
     {
         $database = DatabaseFactory::getFactory()->getConnection();
 
-        $sql = "SELECT * FROM programs WHERE uuid = :uuid LIMIT 1";
+        $sql = "SELECT * FROM programs WHERE id = :id LIMIT 1";
         $query = $database->prepare($sql);
-        $query->execute(array(':uuid' => $id));
+        $query->execute(array(':id' => $id));
 
         return $query->fetch();
     }
@@ -29,9 +29,9 @@ class ProgramsModel
     {
         $database = DatabaseFactory::getFactory()->getConnection();
 
-        $sql = "SELECT * FROM programs INNER JOIN events ON events.program_id = programs.uuid WHERE events.uuid = :uuid LIMIT 1";
+        $sql = "SELECT * FROM programs INNER JOIN events ON events.program_id = programs.id WHERE events.id = :id LIMIT 1";
         $query = $database->prepare($sql);
-        $query->execute(array(':uuid' => $id));
+        $query->execute(array(':id' => $id));
 
         return $query->fetch();
     }
@@ -57,7 +57,7 @@ class ProgramsModel
         return false;
     }
 
-    public static function updateProgram($uuid, $id, $name)
+    public static function updateProgram($id, $id, $name)
     {
         if (!$name) {
           Session::add('feedback_negative', Text::get('FEEDBACK_PROGRAM_EDITING_FAILED'));
@@ -66,9 +66,9 @@ class ProgramsModel
         
         $database = DatabaseFactory::getFactory()->getConnection();
 
-        $sql = "UPDATE programs SET id = :id, name = :name WHERE uuid = :uuid LIMIT 1";
+        $sql = "UPDATE programs SET id = :id, name = :name WHERE id = :id LIMIT 1";
         $query = $database->prepare($sql);
-        $query->execute(array(':id' => $id, ':name' => $name, ':uuid' => $uuid));
+        $query->execute(array(':id' => $id, ':name' => $name, ':id' => $id));
 
         if ($query->rowCount() == 1) {
             return true;
@@ -86,9 +86,9 @@ class ProgramsModel
 
         $database = DatabaseFactory::getFactory()->getConnection();
 
-        $sql = "DELETE FROM programs WHERE uuid = :uuid LIMIT 1";
+        $sql = "DELETE FROM programs WHERE id = :id LIMIT 1";
         $query = $database->prepare($sql);
-        $query->execute(array(':uuid' => $id));
+        $query->execute(array(':id' => $id));
 
         if ($query->rowCount() == 1) {
             return true;

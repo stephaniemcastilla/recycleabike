@@ -14,9 +14,9 @@ class SettingModel
     {
         $database = DatabaseFactory::getFactory()->getConnection();
 
-        $sql = "SELECT * FROM settings WHERE user_id = :user_id";
+        $sql = "SELECT * FROM settings";
         $query = $database->prepare($sql);
-        $query->execute(array(':user_id' => Session::get('user_id')));
+        $query->execute();
 
         // fetchAll() is the PDO method that gets all result rows
         return $query->fetchAll();
@@ -27,13 +27,13 @@ class SettingModel
      * @param int $setting_id id of the specific setting
      * @return object a single object (the result)
      */
-    public static function getSetting($uuid)
+    public static function getSetting($id)
     {
         $database = DatabaseFactory::getFactory()->getConnection();
 
-        $sql = "SELECT * FROM settings WHERE user_id = :user_id AND uuid = :uuid LIMIT 1";
+        $sql = "SELECT * FROM settings WHERE id = :id LIMIT 1";
         $query = $database->prepare($sql);
-        $query->execute(array(':user_id' => Session::get('user_id'), ':uuid' => $uuid));
+        $query->execute(array(':id' => $id));
 
         // fetch() is the PDO method that gets a single result
         return $query->fetch();
@@ -122,13 +122,13 @@ class SettingModel
      * @param int $setting_id id of the specific setting
      * @return value a single value (the result)
      */
-    public static function getSettingValue($uuid)
+    public static function getSettingValue($id)
     {
         $database = DatabaseFactory::getFactory()->getConnection();
 
-        $sql = "SELECT setting_value FROM settings WHERE uuid = :uuid LIMIT 1";
+        $sql = "SELECT setting_value FROM settings WHERE id = :id LIMIT 1";
         $query = $database->prepare($sql);
-        $query->execute(array(':uuid' => $uuid));
+        $query->execute(array(':id' => $id));
 
         // fetch() is the PDO method that gets a single result
         return $query->fetchColumn();
