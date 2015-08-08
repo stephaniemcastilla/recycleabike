@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+<title>Recycle-A-Bike</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="" name="description"/>
 <meta content="" name="author"/>
