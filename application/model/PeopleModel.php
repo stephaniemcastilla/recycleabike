@@ -30,7 +30,7 @@ class PeopleModel
     {
         $database = DatabaseFactory::getFactory()->getConnection();
 
-        $sql = "SELECT * FROM people WHERE people.id IN (SELECT hours.person_id FROM hours WHERE hours.event_id = 86 AND hours.status = 'in')";
+        $sql = "SELECT * FROM people WHERE people.id IN (SELECT hours.person_id FROM hours WHERE hours.event_id = :event_id AND hours.status = 'in')";
         $query = $database->prepare($sql);
         $query->execute(array(':event_id' => $event_id));
 
@@ -52,7 +52,7 @@ class PeopleModel
       {
           $database = DatabaseFactory::getFactory()->getConnection();
 
-          $sql = "SELECT * FROM people WHERE (people.id NOT IN (SELECT hours.person_id FROM hours WHERE hours.event_id = :event_id) OR people.id IN (SELECT hours.person_id FROM hours WHERE hours.event_id = :event_id AND hours.status = 'out')) AND people.last LIKE :last";
+          $sql = "SELECT * FROM people WHERE people.id NOT IN (SELECT hours.person_id FROM hours WHERE hours.event_id = :event_id AND hours.status = 'in') AND people.last LIKE :last";
           $query = $database->prepare($sql);
           $query->execute(array(':event_id' => $event_id, ':last' => $last));
 
