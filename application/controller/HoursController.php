@@ -77,7 +77,7 @@ class HoursController extends Controller
     public function edit($id)
     {
         $this->View->render('hours/edit', array(
-            'hour' => HoursModel::getHour($id)
+            'hour' => HoursModel::getHourByID($id)
         ));
     }
 

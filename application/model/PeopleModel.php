@@ -41,13 +41,24 @@ class PeopleModel
     {
         $database = DatabaseFactory::getFactory()->getConnection();
 
-        $sql = "SELECT * FROM people WHERE people.id NOT IN (SELECT hours.id FROM hours WHERE hours.event_id = :event_id) OR people.id IN (SELECT hours.id FROM hours WHERE hours.event_id = :event_id AND hours.status = 'out')";
+        $sql = "SELECT * FROM people WHERE people.id NOT IN (SELECT hours.person_id FROM hours WHERE hours.event_id = :event_id) OR people.id IN (SELECT hours.id FROM hours WHERE hours.event_id = :event_id AND hours.status = 'out')";
         $query = $database->prepare($sql);
         $query->execute(array(':event_id' => $event_id));
 
         return $query->fetchAll();
     }
     
+      public static function PeopleSignIn($event_id, $last)
+      {
+          $database = DatabaseFactory::getFactory()->getConnection();
+
+          $sql = "SELECT * FROM people WHERE (people.id NOT IN (SELECT hours.person_id FROM hours WHERE hours.event_id = :event_id) OR people.id IN (SELECT hours.person_id FROM hours WHERE hours.event_id = :event_id AND hours.status = 'out')) AND people.last LIKE :last";
+          $query = $database->prepare($sql);
+          $query->execute(array(':event_id' => $event_id, ':last' => $last));
+
+          return $query->fetchAll();
+      }
+      
     public static function getVolunteersExcludedByEvent($event_id)
     {
         $database = DatabaseFactory::getFactory()->getConnection();

@@ -4,7 +4,7 @@
 
 <div class="timeclock" style="margin-top: 50px;">
   
-  <input id="autofill" placeholder="Search by Last Name" onkeyup="autofill('<?= htmlentities($this->event); ?>');"/>
+  <input id="autofill" class="form-control" placeholder="Search by Last Name" onkeyup="autofill('<?= htmlentities($this->event); ?>');"/>
   
   <form action="<?php echo Config::get('URL'); ?>timeclock/signinconfirm/" method="post">
   <input name="event_id" type="hidden" value="<?= htmlentities($this->event); ?>"/>

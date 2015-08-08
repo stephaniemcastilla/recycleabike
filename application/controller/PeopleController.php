@@ -68,7 +68,7 @@ class PeopleController extends Controller
         $last = $_POST['keyword'].'%';
         $event = $_POST['event'];
 
-        $people = PeopleModel::getPeopleByLast($last);
+        $people = PeopleModel::PeopleSignIn($event, $last);
 
         foreach ($people as $person) {
           echo '<tr>';
