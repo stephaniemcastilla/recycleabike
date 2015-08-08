@@ -20,7 +20,7 @@
                <tbody>
                    <?php foreach($this->hours as $key => $hour) { 
                      $start = strtotime(htmlentities($hour->start));
-                     $end =  strtotime(htmlentities($hour->end));
+                     if ($hour->end){$end =  date("g:ia", strtotime(htmlentities($hour->end)));}else{$end="-";};
                      ?>
                      
                        <tr>
@@ -30,7 +30,7 @@
                              <?php } ?>
                            <?php } ?>
                            <td><?= date("g:ia", $start);?></td>
-                           <td><?= date("g:ia", $end);?></td>
+                           <td><?= $end;?></td>
                            <td><?= htmlentities($hour->total_time); ?></td>
                            <td><?= htmlentities($hour->total_points); ?></td>
                        </tr>

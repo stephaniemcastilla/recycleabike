@@ -56,6 +56,25 @@ class HoursModel
 
         return $query->fetchColumn();
     }
+    
+    public static function signIn($person_id, $event_id, $start, $mode, $status, $total_time, $total_points, $total_revenue)
+    {          
+  
+        $database = DatabaseFactory::getFactory()->getConnection();
+        
+        $sql = "INSERT INTO hours (person_id, event_id, start, mode, status, total_time, total_points, total_revenue) VALUES (:person_id, :event_id, :start, :mode, :status, :total_time, :total_points, :total_revenue)";
+        $query = $database->prepare($sql);
+        $query->execute(array(':person_id' => $person_id, ':event_id' => $event_id, ':start' => $start, ':mode' => $mode, ':status' => $status, ':total_time' => $total_time, ':total_points' => $total_points, ':total_revenue' => $total_revenue));
+        
+
+        if ($query->rowCount() == 1) {
+            return true;
+        }
+
+        Session::add('feedback_negative', Text::get('FEEDBACK_TIMESHEET_CREATION_FAILED'));
+        return false;
+    }
+    
 
     public static function createHour($person_id, $event_id, $start, $end, $mode, $status, $total_time, $total_points, $total_revenue)
     {          

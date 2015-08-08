@@ -74,13 +74,12 @@ class TimeclockController extends Controller
         $event_id = Request::post('event_id');
         $mode = Request::post('mode');
         $start = date("Y-m-d H:i:s"); 
-        $end = "";
         $status = "in";
         $total_time = 0;
         $total_points = 0;
         $total_revenue = 0;
         
-        HoursModel::createHour(Request::post('person_id'), Request::post('event_id'), $start, $end, $mode, $status, $total_time, $total_points, $total_revenue);
+        HoursModel::signIn(Request::post('person_id'), Request::post('event_id'), $start, $mode, $status, $total_time, $total_points, $total_revenue);
         
         $this->View->renderFullscreen('timeclock/signinconfirm', array(
           'person' => PeopleModel::getPersonByID($person_id),
