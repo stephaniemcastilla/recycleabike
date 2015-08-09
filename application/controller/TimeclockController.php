@@ -164,6 +164,21 @@ class TimeclockController extends Controller
             'event' => $id
         ));
     }
+    
+    public function newguest($id)
+    {
+        $this->View->renderFullscreen('timeclock/newguest', array(
+          'event' => $id
+        ));
+    }
+    
+    public function contact($id)
+    {
+        $this->View->renderFullscreen('timeclock/contact', array(
+          'event' => $id
+        ));
+    }
+    
     public function purchase()
     {
         $this->View->renderFullscreen('timeclock/purchase');

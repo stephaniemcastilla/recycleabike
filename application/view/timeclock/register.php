@@ -2,7 +2,9 @@
 
 Register
 
-<form>
+<form method="post" action="<?php echo Config::get('URL');?>people/create">
+  <input type="hidden" name="location" value="timeclock"/>
+  <input type="hidden" name="event" value="<?= $event; ?>"/>
   <input type="file" name="photo" value=""/>
   <input type="text" name="first" placeholder="First Name" value=""/>
   <input type="text" name="last" placeholder="Last Name" value=""/>

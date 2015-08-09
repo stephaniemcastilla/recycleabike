@@ -16,7 +16,8 @@
                  <form method="post" action="<?php echo Config::get('URL');?>people/create">
                      <input type="text" name="first" placeholder="First Name"/><br/>
                      <input type="text" name="last" placeholder="Last Name"/><br/>
-                     <input type="text" name="email" placeholder="Email Address Name"/><br/>    
+                     <input type="text" name="email" placeholder="Email Address Name"/><br/>   
+                     <input type="text" name="phone" placeholder="Phone Number"/><br/>    
                      <input type="hidden" name="type" value="<?= htmlentities($this->type)?>"/><br/>                 
              </p>
   				</div>
