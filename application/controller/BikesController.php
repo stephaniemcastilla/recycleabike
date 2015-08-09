@@ -6,10 +6,8 @@ class BikesController extends Controller
     {
         parent::__construct();
 
-        // VERY IMPORTANT: All controllers/areas that should only be usable by logged-in users
-        // need this line! Otherwise not-logged in users could do actions. If all of your pages should only
-        // be usable by logged-in users: Put this line into libs/Controller->__construct
-        Auth::checkAuthentication();
+        // Ensure User Is Logged In
+        //Auth::checkAuthentication();
     }
 
     public function index()

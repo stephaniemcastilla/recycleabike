@@ -27,7 +27,7 @@
     			<div class="hor-menu ">
             <!-- navigation -->
             <ul class="nav navbar-nav">
-                <?php if (Session::userIsLoggedIn()) { ?>
+                <?php //if (Session::userIsLoggedIn()) { ?>
                     <!-- <li <?php if (View::checkForActiveController($filename, "dashboard")) { echo ' class="active" '; } ?> >
                         <a href="<?php echo Config::get('URL'); ?>dashboard/">Home</a>
                     </li> -->
@@ -86,15 +86,15 @@
                             </li>
                         </ul>
                     </li>  -->                            
-                <?php } else { ?>
+                <?php //} else { ?>
                     <!-- for not logged in users -->
-                    <li <?php if (View::checkForActiveControllerAndAction($filename, "login/index")) { echo ' class="active" '; } ?> >
+                    <!-- <li <?php if (View::checkForActiveControllerAndAction($filename, "login/index")) { echo ' class="active" '; } ?> >
                         <a href="<?php echo Config::get('URL'); ?>login/">Login</a>
-                    </li>
+                    </li> -->
                     <!--<li <?php if (View::checkForActiveControllerAndAction($filename, "login/register")) { echo ' class="active" '; } ?> >
                         <a href="<?php echo Config::get('URL'); ?>login/register">Register</a>
                     </li>-->
-                <?php } ?>
+                <?php //} ?>
             </ul>
           <!-- END MEGA MENU -->
           </div>

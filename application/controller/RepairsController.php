@@ -7,8 +7,8 @@ class RepairsController extends Controller
     {
         parent::__construct();
 
-        // Ensure User Is Hourged In
-        Auth::checkAuthentication();
+        // Ensure User Is Logged In
+        //Auth::checkAuthentication();
     }
 
     public function index()

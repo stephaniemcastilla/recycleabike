@@ -10,7 +10,7 @@
                 <select name="type">
                   <option value="points_granted">Points Granted</option>
                   <option value="revenue_earned">Revenue Earned</option>
-                  <option value="time_hourged">Time Hourged</option>
+                  <option value="time_logged">Time Hourged</option>
                 </select><br/>
                 <input type="date" name="date" /><br/>
                 <input type="text" name="person_id" placeholder="Person ID" /><br/>

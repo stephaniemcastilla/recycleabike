@@ -164,7 +164,7 @@ class HoursModel
     {
         $database = DatabaseFactory::getFactory()->getConnection();
 
-        $sql = "SELECT * FROM hours WHERE is_hourged_time = 1 AND user_id = :user_id";
+        $sql = "SELECT * FROM hours WHERE is_logged_time = 1 AND user_id = :user_id";
         $query = $database->prepare($sql);
         $query->execute(array(':user_id' => Session::get('user_id')));
 
@@ -175,7 +175,7 @@ class HoursModel
     {
         $database = Databaidctory::getFactory()->getConnection();
 
-        $sql = "SELECT * FROM hours WHERE is_hourged_time = 1 AND parent_id = :parent_id";
+        $sql = "SELECT * FROM hours WHERE is_logged_time = 1 AND parent_id = :parent_id";
         $query = $database->prepare($sql);
         $query->execute(array(':parent_id' => $id));
 

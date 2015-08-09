@@ -8,7 +8,7 @@ class ProgramsController extends Controller
         parent::__construct();
 
         // Ensure User Is Logged In
-        Auth::checkAuthentication();
+        //Auth::checkAuthentication();
     }
 
     public function index()

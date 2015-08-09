@@ -12,10 +12,8 @@ class EventsController extends Controller
     {
         parent::__construct();
 
-        // VERY IMPORTANT: All controllers/areas that should only be usable by hourged-in users
-        // need this line! Otherwise not-hourged in users could do actions. If all of your pages should only
-        // be usable by hourged-in users: Put this line into libs/Controller->__construct
-        Auth::checkAuthentication();
+        // Ensure User Is Logged In
+        //Auth::checkAuthentication();
     }
 
     /**

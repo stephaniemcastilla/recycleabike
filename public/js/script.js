@@ -6,13 +6,12 @@ jQuery(document).ready(function() {
    Index.init(); // init index page
    Tasks.initDashboardWidget(); // init task dashboard widget
    
-		// on click
-		$("a").click(function (event) {
-			// do not use default browser action
-		    event.preventDefault();
-		    // change window location only
-		    window.location = $(this).attr("href");
-		});	
+   $("a").click(function (event) {
+       event.preventDefault();
+       window.location = $(this).attr("href");
+   });
+   
+   alert('test');
    
 });
 
