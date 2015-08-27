@@ -5,14 +5,17 @@ jQuery(document).ready(function() {
    ComponentsPickers.init();
    Index.init(); // init index page
    Tasks.initDashboardWidget(); // init task dashboard widget
-   
-   $("a").click(function (event) {
-       event.preventDefault();
-       window.location = $(this).attr("href");
-   });
-   
+  
    alert('test');
-   
+   var a=document.getElementsByTagName("a");
+   for(var i=0;i<a.length;i++)
+   {
+       a[i].onclick=function()
+       {
+           window.location=this.getAttribute("href");
+           return false
+       }
+   }
 });
 
 function autofill(event) {
