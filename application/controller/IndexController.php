@@ -16,6 +16,10 @@ class IndexController extends Controller
      */
     public function index()
     {
-        $this->View->render('index/index');
+        $this->View->render('events/index', array(
+            'events' => EventsModel::getAllEvents(),
+            'programs' => ProgramsModel::getAllPrograms(), 
+            'hours' => HoursModel::getAllHours()
+        ));
     }
 }
