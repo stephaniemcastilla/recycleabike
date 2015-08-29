@@ -17,7 +17,7 @@
 
     </tbody>
   </table>
-  <a href='<?= Config::get('URL')?>timeclock/register?event=<?= htmlentities($this->event); ?>'><div class='btn btn-success' style='margin: 20px 0px; font-size: 25px;'>Don't see your name? <b>REGISTER NOW > </b></div></a></div>
+  <a href='<?= Config::get('URL')?>timeclock/register/event/<?= htmlentities($this->event); ?>'><div class='btn btn-success' style='margin: 20px 0px; font-size: 25px;'>Don't see your name? <b>REGISTER NOW > </b></div></a></div>
   <?php } else { ?>
       <div style="margin-top: 20px; width: 100%;">No people found.</div>
   <?php } ?>
