@@ -41,7 +41,7 @@ class PeopleModel
     {
         $database = DatabaseFactory::getFactory()->getConnection();
 
-        $sql = "SELECT * FROM people WHERE people.id NOT IN (SELECT hours.person_id FROM hours WHERE hours.event_id = :event_id) OR people.id IN (SELECT hours.id FROM hours WHERE hours.event_id = :event_id AND hours.status = 'out')";
+        $sql = "SELECT * FROM people WHERE people.id NOT IN (SELECT hours.person_id FROM hours WHERE hours.event_id = :event_id) OR people.id IN (SELECT hours.id FROM hours WHERE hours.event_id = :event_id AND hours.status = 'out') ORDER BY last ASC";
         $query = $database->prepare($sql);
         $query->execute(array(':event_id' => $event_id));
 
@@ -52,7 +52,7 @@ class PeopleModel
       {
           $database = DatabaseFactory::getFactory()->getConnection();
 
-          $sql = "SELECT * FROM people WHERE people.id NOT IN (SELECT hours.person_id FROM hours WHERE hours.event_id = :event_id AND hours.status = 'in') AND people.last LIKE :last";
+          $sql = "SELECT * FROM people WHERE people.id NOT IN (SELECT hours.person_id FROM hours WHERE hours.event_id = :event_id AND hours.status = 'in') AND people.last LIKE :last ORDER BY last ASC";
           $query = $database->prepare($sql);
           $query->execute(array(':event_id' => $event_id, ':last' => $last));
 

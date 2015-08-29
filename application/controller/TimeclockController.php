@@ -45,9 +45,11 @@ class TimeclockController extends Controller
         Redirect::to('events');
     }
     
-    public function register()
+    public function register($id)
     {
-        $this->View->renderFullscreen('timeclock/register');
+        $this->View->renderFullscreen('timeclock/register', array(
+          'event' => $id
+        ));
     }
     
     public function signInReason($id)
@@ -189,6 +191,14 @@ class TimeclockController extends Controller
         $this->View->renderFullscreen('timeclock/newsletter', array(
           'event' => $id
         ));
+    }
+    
+    public function newVolunteer()
+    {
+        $event = Request::post('event');
+        echo $event;
+        PeopleModel::createPerson(Request::post('first'), Request::post('last'), Request::post('email'));
+        Redirect::to('timeclock/event/'.$event);
     }
     
 }

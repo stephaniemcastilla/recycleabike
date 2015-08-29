@@ -79,9 +79,6 @@ class PeopleController extends Controller
           echo '</td>';
           echo '</tr>';
         }
-        echo "<a href='";
-        echo URL;
-        echo "timelogs/register?event=".$event."'><div class='btn btn-success' style='margin: 20px 0px; font-size: 25px;'>Don't see your name? <b>REGISTER NOW > </b></div></a>";
 
     }
     

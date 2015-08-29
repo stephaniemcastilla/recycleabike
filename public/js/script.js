@@ -30,12 +30,13 @@ function autofill(event) {
              url: "/people/getPeopleByLast",
              type: 'POST',
              data: {keyword:keyword, event:event},
-             success:function(data){
+            success:function(data){
                   if ($('#autofill').val() != ""){
                       $('#autofill-results').show();
                       $('#autofill-results tbody').html(data);
                   }else{
-                      $('#autofill-results').hide();
+                      $('#autofill-results tbody').html(data);
+                      //$('#autofill-results').hide();
                   }
              }
             })

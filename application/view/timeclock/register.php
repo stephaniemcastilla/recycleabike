@@ -2,9 +2,9 @@
 
 Register
 
-<form method="post" action="<?php echo Config::get('URL');?>people/create">
+<form method="post" action="<?php echo Config::get('URL');?>timeclock/newvolunteer">
   <input type="hidden" name="location" value="timeclock"/>
-  <input type="hidden" name="event" value="<?= $event; ?>"/>
+  <input type="hidden" name="event" value="<?= htmlentities($this->event); ?>"/>
   <input type="file" name="photo" value=""/>
   <input type="text" name="first" placeholder="First Name" value=""/>
   <input type="text" name="last" placeholder="Last Name" value=""/>
