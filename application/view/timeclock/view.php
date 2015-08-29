@@ -1,6 +1,6 @@
 <br>
 <div style="margin: 0px 230px;"><a href="<?= Config::get('URL') . 'timeclock/event/' . htmlentities($this->event); ?>" style="float: left;">< Back</a></div>
-<center><h1>Volunteers:</h1>
+<center><h1>Participants:</h1>
 
 <div class="timeclock" style="margin-top: 50px;">
     
@@ -9,8 +9,9 @@
        <?php if ($this->hours) { ?>
            <table class="hours-table table table-striped table-bordered table-hover">
                <thead>
-               <tr>
-                   <td>Volunteer</td>
+               <tr>            
+                   <td>Type</td>
+                   <td>Person</td>
                    <td>Start Time</td>
                    <td>End Time</td>
                    <td>Total Time</td>
@@ -24,6 +25,7 @@
                      ?>
                      
                        <tr>
+                           <td><?= htmlentities($hour->mode); ?></td>
                            <?php foreach($this->people as $key => $person) { ?>
                              <?php if(htmlentities($person->id)==htmlentities($hour->person_id)){?>
                                <td><?= htmlentities($person->first); ?> <?= htmlentities($person->last); ?></td>
